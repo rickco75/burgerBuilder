@@ -3,11 +3,46 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom'
+
+import { Provider } from 'react-redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import burgerBuilderReducer from './store/reducers/burgerBuilder'
+import orderReducer from './store/reducers/order'
+import authReducer from './store/reducers/auth'
+import userReducer from './store/reducers/user'
+
+// const logger = store  => {
+//   return next => {
+//     return action => {
+//       console.log("[Middleware] Dispatching", action)
+//       const result = next(action)
+//       console.log('[middlware] next state', store.getState())
+//       return result
+//     }
+//   }
+// }
+
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose 
+
+const rootReducer = combineReducers({
+  burgerBuilder: burgerBuilderReducer,
+  order: orderReducer,
+  auth: authReducer,
+  user: userReducer
+})
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
