@@ -6,6 +6,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from '../../store/actions/index'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import User from '../../components/User/User'
+import classes from './Users.module.css'
 
 class Users extends Component {
 
@@ -52,31 +53,34 @@ class Users extends Component {
                     username={user.userName}
                     firstName={user.firstName}
                     lastName={user.lastName}
-                    email = {user.email}
-                    userId = {user.id}
+                    email={user.email}
+                    userId={user.id}
                 />
             ))
         }
         return (
             <div>
-                Welcome to Users
+                <h1 className={classes.UsersHeader}>User Management</h1>
                 {users}
-                <form onSubmit={this.userHandler}>
-                    <span>Username</span>
-                    <input
-                        onChange={this.inputChangeHandler} name="userName" value={this.state.userName} /> <br />
-                    <span>First Name</span>
-                    <input
-                        onChange={this.inputChangeHandler} name="firstName" value={this.state.firstName} /><br />
-                    <span>Last Name</span>
-                    <input
-                        onChange={this.inputChangeHandler} name="lastName" value={this.state.lastName} /><br />
-                    <span>Email</span>
-                    <input
-                        onChange={this.inputChangeHandler} name="email" value={this.state.email} />
+                <div className={classes.UserForm}>
+                    Add a new User <hr/>
+                    <form onSubmit={this.userHandler}>
+                        <span>Username</span>
+                        <input
+                            onChange={this.inputChangeHandler} name="userName" value={this.state.userName} /> <br />
+                        <span>First Name</span>
+                        <input
+                            onChange={this.inputChangeHandler} name="firstName" value={this.state.firstName} /><br />
+                        <span>Last Name</span>
+                        <input
+                            onChange={this.inputChangeHandler} name="lastName" value={this.state.lastName} /><br />
+                        <span>Email</span>
+                        <input
+                            onChange={this.inputChangeHandler} name="email" value={this.state.email} />
 
-                    <button>Submit</button>
-                </form>
+                        <button>Submit</button>
+                    </form>
+                </div>
             </div>
         )
     }

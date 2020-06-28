@@ -28,9 +28,12 @@ const fetchUsersSuccess = (state,action) => {
 }
 
 const addUserSuccess = (state,action) => {
+    const newUserData = updateObject(action.userData, {
+        id: action.userId
+    })
     return updateObject(state, {
         loading: false,
-        users: state.users.concat(action.userData)
+        users: state.users.concat(newUserData)
     })
 }
 

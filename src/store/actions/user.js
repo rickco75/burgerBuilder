@@ -31,8 +31,7 @@ export const addUser = (userData) => {
         axios.post('https://burgerbuilder-8a36d.firebaseio.com/users.json',userData)
         .then(res => {
             console.log("added user successfully: ",res)
-            dispatch(addUserSuccess(userData))
-            //fetchUsers()
+            dispatch(addUserSuccess(userData,res.data.name))
         })
         .catch(err=> {
             console.log(err)
@@ -40,10 +39,11 @@ export const addUser = (userData) => {
     }
 }
 
-export const addUserSuccess = (userData) => {
+export const addUserSuccess = (userData,userId) => {
     return {
         type: actionTypes.ADD_USER_SUCCESS,
-        userData:userData        
+        userData:userData,
+        userId:userId    
     }
 }
 

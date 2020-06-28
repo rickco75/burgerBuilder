@@ -1,0 +1,14 @@
+.UserForm {
+    margin: 10px auto;
+    width: 50%;
+    text-align: left;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: rgb(157, 168, 168);    
+}
+
+.UsersHeader {
+    text-align: center;
+}
