@@ -43,6 +43,12 @@ class Users extends Component {
         console.log(newFormData);
 
         this.props.onAddUser(newFormData, this.props.token)
+        this.setState({
+            userName: '',
+            firstName: '',
+            lastName: '',
+            email: ''
+        })
     }
 
     render() {
@@ -60,8 +66,7 @@ class Users extends Component {
         }
         return (
             <div>
-                <h1 className={classes.UsersHeader}>User Management</h1>
-                {users}
+                <h1 className={classes.UsersHeader}>User Management</h1>                
                 <div className={classes.UserForm}>
                     Add a new User <hr/>
                     <form onSubmit={this.userHandler}>
@@ -81,6 +86,7 @@ class Users extends Component {
                         <button>Submit</button>
                     </form>
                 </div>
+                {users}
             </div>
         )
     }
