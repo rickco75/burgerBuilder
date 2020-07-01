@@ -12,6 +12,7 @@
 /build
 /src/hoc/AuxHoc/Aux.js
 # misc
+.env
 .DS_Store
 .env.local
 .env.development.local
