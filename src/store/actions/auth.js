@@ -44,10 +44,10 @@ export const checkAuthTimeout = (expirationTime) => {
 export const auth = (email, password, isSignup) => {
     return dispatch => {
         dispatch(authStart())
-        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB_dXNkz3BOPXUCqVAxgEq5e4LN13u2BXc'
+        let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`
 
         if (!isSignup) {
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB_dXNkz3BOPXUCqVAxgEq5e4LN13u2BXc'
+            url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`
         }
         const authData = {
             email: email,

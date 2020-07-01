@@ -64,6 +64,7 @@ class Users extends Component {
                 />
             ))
         }
+        
         return (
             <div>
                 <h1 className={classes.UsersHeader}>User Management</h1>                
