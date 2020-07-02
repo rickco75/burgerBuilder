@@ -34,21 +34,31 @@ class Users extends Component {
             lastName: this.state.lastName,
             userName: this.state.userName
         }
+        
         const newFormData = {
             email: formData.email[0],
             firstName: formData.firstName[0],
             lastName: formData.lastName[0],
             userName: formData.userName[0]
         }
-        console.log(newFormData);
 
-        this.props.onAddUser(newFormData, this.props.token)
-        this.setState({
-            userName: '',
-            firstName: '',
-            lastName: '',
-            email: ''
-        })
+        let validation = newFormData.email && newFormData.firstName && newFormData.lastName && newFormData.userName
+
+        if (validation){
+            document.getElementById("submitButton").style.disabled = false;
+            this.props.onAddUser(newFormData, this.props.token)
+            this.setState({
+                userName: '',
+                firstName: '',
+                lastName: '',
+                email: ''
+            })
+        } else {
+            document.getElementById("errorMessage").innerHTML = " ** All fields are required!"
+            console.log("not validated")
+        }
+
+        
     }
 
     render() {
@@ -64,27 +74,51 @@ class Users extends Component {
                 />
             ))
         }
-        
+
         return (
             <div>
-                <h1 className={classes.UsersHeader}>User Management</h1>                
+                <h1 className={classes.UsersHeader}>User Management</h1>
                 <div className={classes.UserForm}>
-                    Add a new User <hr/>
+                    <h3 className={classes.UsersHeader}>Add a new User</h3>
+                     <hr />
+                    <p className={classes.UsersHeader} id="errorMessage" style={{color:"white"}}></p>
                     <form onSubmit={this.userHandler}>
-                        <span>Username</span>
-                        <input
-                            onChange={this.inputChangeHandler} name="userName" value={this.state.userName} /> <br />
-                        <span>First Name</span>
-                        <input
-                            onChange={this.inputChangeHandler} name="firstName" value={this.state.firstName} /><br />
-                        <span>Last Name</span>
-                        <input
-                            onChange={this.inputChangeHandler} name="lastName" value={this.state.lastName} /><br />
-                        <span>Email</span>
-                        <input
-                            onChange={this.inputChangeHandler} name="email" value={this.state.email} />
+                        <div className={classes.Input}>
+                        <label className={classes.Label}>User Name</label>
+                            <input className={classes.InputElement}
+                                   onChange={this.inputChangeHandler} 
+                                   name="userName" 
+                                   value={this.state.userName} />
+                        </div>
 
-                        <button>Submit</button>
+                        <div className={classes.Input}>
+                        <label className={classes.Label}>First Name</label>
+                            <input className={classes.InputElement}
+                                   onChange={this.inputChangeHandler} 
+                                   name="firstName" 
+                                   value={this.state.firstName} />
+                        </div>
+                        <div className={classes.Input}>
+                        <label className={classes.Label}>Last Name</label>
+                            <input className={classes.InputElement}
+                                   onChange={this.inputChangeHandler} 
+                                   name="lastName" 
+                                   value={this.state.lastName} />
+                        </div>
+                        <div className={classes.Input}>
+                        <label className={classes.Label}>Email</label>
+                            <input className={classes.InputElement}
+                                onChange={this.inputChangeHandler} 
+                                name="email" 
+                                value={this.state.email} />
+                        </div>                                               
+                        <div className={classes.UsersHeader}>
+                            <button 
+                                    id="submitButton" 
+                                    className={classes.Button}>
+                                        Submit
+                            </button>
+                        </div>
                     </form>
                 </div>
                 {users}
@@ -101,7 +135,6 @@ const mapStateToProps = (state) => {
         userId: state.auth.userId
     }
 }
-
 const mapDispatchToProps = (dispatch) => {
     return {
         onFetchUsers: (token, userId) => dispatch(actions.fetchUsers(token, userId)),
